@@ -5,9 +5,11 @@ import javax.swing.*;
 
 public class StatusPanel extends JPanel {
     private JProgressBar fullness;
+
     private JProgressBar cleanliness;
     private JProgressBar energy;
     private JProgressBar happiness;
+
     private Font statusFont = new Font("Arial", Font.BOLD, 18);
 
     public StatusPanel() {
@@ -15,7 +17,6 @@ public class StatusPanel extends JPanel {
         Color backgroundColor = Color.decode("#472c61");
         Color foregroundColor = Color.decode("#66dee0");
         this.setBackground(backgroundColor);
-
 
         fullness = new JProgressBar();
         fullness.setMinimum(0);
@@ -36,7 +37,6 @@ public class StatusPanel extends JPanel {
         energy.setMinimum(0);
         energy.setMaximum(50);
         energy.setValue(10);
-
 
         JPanel hungerPanel = new JPanel();
         hungerPanel.setLayout(new BoxLayout(hungerPanel, BoxLayout.Y_AXIS));
@@ -92,4 +92,3 @@ public class StatusPanel extends JPanel {
         this.add(energyPanel);
     }
 }
-

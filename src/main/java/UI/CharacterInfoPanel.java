@@ -11,7 +11,6 @@ public class CharacterInfoPanel extends JPanel {
     private JLabel moodLabel;
     private Font labelFont = new Font("Arial", Font.BOLD, 16);
 
-
     public CharacterInfoPanel() {
         setLayout(new BorderLayout());
 
@@ -31,11 +30,10 @@ public class CharacterInfoPanel extends JPanel {
         ageLabel = new JLabel("Age: ");
         ageLabel.setFont(labelFont);
         ImageIcon moodIcon = new ImageIcon(getClass().getResource("/happyEmote.png"));
-        moodLabel = new JLabel("Mood: " );
+        moodLabel = new JLabel("Mood: ");
         moodLabel.setFont(labelFont);
         moodLabel.setIcon(moodIcon);
         moodLabel.setHorizontalTextPosition(JLabel.LEFT);
-
 
         int verticalSpacing = 8;
         int leftPadding = 8;
@@ -43,8 +41,6 @@ public class CharacterInfoPanel extends JPanel {
         breedLabel.setBorder(new EmptyBorder(verticalSpacing, leftPadding, verticalSpacing, 0));
         ageLabel.setBorder(new EmptyBorder(verticalSpacing, leftPadding, verticalSpacing, 0));
         moodLabel.setBorder(new EmptyBorder(verticalSpacing, leftPadding, verticalSpacing, 0));
-
-
 
         infoPanel.add(nameLabel);
         infoPanel.add(breedLabel);
@@ -58,12 +54,12 @@ public class CharacterInfoPanel extends JPanel {
         dialogueArea.setLineWrap(true);
         dialogueArea.setWrapStyleWord(true); // Перенос слов по словам, а не по символам
         dialogueArea.setBackground(infoPanelBackgroundColor);
-        dialogueArea.setMargin(new Insets(5, 5, 5, 5));// Set top, left, bottom, and right padding
-        //JScrollPane scrollPane = new JScrollPane(dialogueArea);
-        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        dialogueArea.setText("Arf arf! Hey there, I'm your virtual companion here! My name's Buddy, and I'm a playful pup ready to explore and have fun with you. Woof woof! You can interact with me in various ways – feed me tasty treats when I'm hungry, take me for walks to keep me active, and don't forget to pet me for some good belly rubs! Ruff ruff! If I look sleepy, it's probably time for a nap in my cozy bed. I'm excited to be your loyal friend and companion on this virtual adventure. Let's create unforgettable memories together!");
-        //this.add(scrollPane, BorderLayout.CENTER);
+        dialogueArea.setMargin(new Insets(5, 5, 5, 5)); // Set top, left, bottom, and right padding
+        // JScrollPane scrollPane = new JScrollPane(dialogueArea);
+        // scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        dialogueArea.setText(
+                "Arf arf! Hey there, I'm your virtual companion here! My name's Buddy, and I'm a playful pup ready to explore and have fun with you. Woof woof! You can interact with me in various ways – feed me tasty treats when I'm hungry, take me for walks to keep me active, and don't forget to pet me for some good belly rubs! Ruff ruff! If I look sleepy, it's probably time for a nap in my cozy bed. I'm excited to be your loyal friend and companion on this virtual adventure. Let's create unforgettable memories together!");
+        // this.add(scrollPane, BorderLayout.CENTER);
         this.add(dialogueArea, BorderLayout.CENTER);
-
     }
 }

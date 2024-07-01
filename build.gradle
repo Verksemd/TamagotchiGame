@@ -1,8 +1,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'java'
-    id 'com.diffplug.spotless'
-    id 'com.github.sherter.google-java-format'
+    id "com.diffplug.spotless" version "6.25.0"
 }
 
 repositories {
@@ -13,7 +12,6 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
-    googleJavaFormat 'com.google.googlejavaformat:google-java-format'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
@@ -36,16 +34,22 @@ jar {
 
 spotless {
     java {
-        googleJavaFormat('1.9')
-    }
-}
+        // Use the default importOrder configuration
+        importOrder()
+        // optional: instead of specifying import groups directly you can specify a config file
+        // export config file: https://github.com/diffplug/spotless/blob/main/ECLIPSE_SCREENSHOTS.md#creating-spotlessimportorder
 
-tasks.register('googleJavaFormat', JavaExec) {
-    mainClass = 'com.google.googlejavaformat.java.Main'
-    classpath = configurations.googleJavaFormat
-    args = ['--replace', 'src/**/*.java']
-    configurations {
-        googleJavaFormat
+        removeUnusedImports()
+
+        // Cleanthat will refactor your code, but it may break your style: apply it before your formatter
+        cleanthat()          // has its own section below
+
+        // Choose one of these formatters.
+        googleJavaFormat().aosp()   // has its own section below
+
+        formatAnnotations()  // fixes formatting of type annotations, see below
+
+        //licenseHeader '/* (C) $YEAR */' // or licenseHeaderFile
     }
 }
 

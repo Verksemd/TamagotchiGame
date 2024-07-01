@@ -19,7 +19,6 @@ public class ActionPanel extends JPanel {
         feed = new JButton("Feed me");
         feed.setPreferredSize(new Dimension(150, 50));
 
-
         clean = new JButton("Clean me");
         clean.setPreferredSize(new Dimension(150, 50));
 
@@ -31,7 +30,6 @@ public class ActionPanel extends JPanel {
 
         pet = new JButton("Pet me");
         pet.setPreferredSize(new Dimension(150, 50));
-
 
         setButtonBackground(feed, buttonBackgroundColor);
         setButtonBackground(clean, buttonBackgroundColor);
@@ -50,7 +48,6 @@ public class ActionPanel extends JPanel {
         this.add(sleep);
         this.add(play);
         this.add(pet);
-
 
         // Устанавливаем предпочтительные размеры для панели ActionPanel
         int panelWidth = 250;
