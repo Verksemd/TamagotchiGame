@@ -14,9 +14,7 @@ public class StatusPanel extends JPanel {
 
     public StatusPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        Color backgroundColor = Color.decode("#472c61");
-        Color foregroundColor = Color.decode("#66dee0");
-        this.setBackground(backgroundColor);
+        this.setBackground(Style.statusPanelBackgroundColor);
 
         fullness = new JProgressBar();
         fullness.setMinimum(0);
@@ -43,10 +41,10 @@ public class StatusPanel extends JPanel {
         JLabel hungerLabel = new JLabel("Fullness");
         hungerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         hungerLabel.setFont(statusFont);
-        hungerLabel.setForeground(foregroundColor);
+        hungerLabel.setForeground(Style.statusPanelForegroundColor);
         fullness.setAlignmentX(Component.CENTER_ALIGNMENT);
         hungerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        hungerPanel.setBackground(backgroundColor);
+        hungerPanel.setBackground(Style.statusPanelBackgroundColor);
         hungerPanel.add(hungerLabel);
         hungerPanel.add(fullness);
 
@@ -55,10 +53,10 @@ public class StatusPanel extends JPanel {
         JLabel thirstLabel = new JLabel("Cleanliness");
         thirstLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         thirstLabel.setFont(statusFont);
-        thirstLabel.setForeground(foregroundColor);
+        thirstLabel.setForeground(Style.statusPanelForegroundColor);
         cleanliness.setAlignmentX(Component.CENTER_ALIGNMENT);
         thirstPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        thirstPanel.setBackground(backgroundColor);
+        thirstPanel.setBackground(Style.statusPanelBackgroundColor);
         thirstPanel.add(thirstLabel);
         thirstPanel.add(cleanliness);
 
@@ -66,11 +64,11 @@ public class StatusPanel extends JPanel {
         happinessPanel.setLayout(new BoxLayout(happinessPanel, BoxLayout.Y_AXIS));
         JLabel happinessLabel = new JLabel("Happiness");
         happinessLabel.setFont(statusFont);
-        happinessLabel.setForeground(foregroundColor);
+        happinessLabel.setForeground(Style.statusPanelForegroundColor);
         happinessLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         happiness.setAlignmentX(Component.CENTER_ALIGNMENT);
         happinessPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        happinessPanel.setBackground(backgroundColor);
+        happinessPanel.setBackground(Style.statusPanelBackgroundColor);
         happinessPanel.add(happinessLabel);
         happinessPanel.add(happiness);
 
@@ -78,11 +76,11 @@ public class StatusPanel extends JPanel {
         energyPanel.setLayout(new BoxLayout(energyPanel, BoxLayout.Y_AXIS));
         JLabel energyLabel = new JLabel("Energy");
         energyLabel.setFont(statusFont);
-        energyLabel.setForeground(foregroundColor);
+        energyLabel.setForeground(Style.statusPanelForegroundColor);
         energyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         energy.setAlignmentX(Component.CENTER_ALIGNMENT);
         energyPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        energyPanel.setBackground(backgroundColor);
+        energyPanel.setBackground(Style.statusPanelBackgroundColor);
         energyPanel.add(energyLabel);
         energyPanel.add(energy);
 
