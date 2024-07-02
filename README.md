@@ -1,3 +1,5 @@
+![img.png](img.png)
+
 A pet - potentially any creature imaginable, but at the start it'll be a dog
 
 If we have a desktop app, we should 1) save the state 2) make the pet hungry, sad, etc. when the

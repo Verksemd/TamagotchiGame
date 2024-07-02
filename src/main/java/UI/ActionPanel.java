@@ -9,12 +9,14 @@ public class ActionPanel extends JPanel {
     private JButton sleep;
     private JButton play;
     private JButton pet;
+    private Font actionButtonsFont = new Font("Arial", Font.BOLD, 14);
 
     public ActionPanel() {
         // Используем GridLayout для автоматического распределения компонентов
         this.setLayout(new GridLayout(5, 1, 10, 10)); // 4 строки, 1 столбец, отступы 10 пикселей
         Color buttonBackgroundColor = Color.decode("#472c61");
-        Color buttonForegroundColor = Color.decode("#becdcd");
+        Color buttonForegroundColor = Color.decode("#66dee0");
+
 
         feed = new JButton("Feed me");
         feed.setPreferredSize(new Dimension(150, 50));
@@ -42,6 +44,12 @@ public class ActionPanel extends JPanel {
         sleep.setForeground(buttonForegroundColor);
         play.setForeground(buttonForegroundColor);
         pet.setForeground(buttonForegroundColor);
+
+        feed.setFont(actionButtonsFont);
+        clean.setFont(actionButtonsFont);
+        sleep.setFont(actionButtonsFont);
+        play.setFont(actionButtonsFont);
+        pet.setFont(actionButtonsFont);
 
         this.add(feed);
         this.add(clean);
