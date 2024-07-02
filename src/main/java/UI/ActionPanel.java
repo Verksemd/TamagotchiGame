@@ -17,7 +17,6 @@ public class ActionPanel extends JPanel {
         Color buttonBackgroundColor = Color.decode("#472c61");
         Color buttonForegroundColor = Color.decode("#66dee0");
 
-
         feed = new JButton("Feed me");
         feed.setPreferredSize(new Dimension(150, 50));
 
