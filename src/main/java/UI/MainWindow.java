@@ -1,5 +1,6 @@
 package UI;
 
+import Logic.Pet;
 import java.awt.*;
 import javax.swing.*;
 
@@ -46,14 +47,15 @@ public class MainWindow {
 
         panel.setLayout(layout);
         panel.add(new JLabel(animatedIcon), BorderLayout.CENTER);
-        actionPanel = new ActionPanel();
+        Pet dog = new Pet("Goburu", 24, "Husky", 30);
+        actionPanel = new ActionPanel(dog);
         panel.add(actionPanel, BorderLayout.EAST);
 
-        characterInfoPanel = new CharacterInfoPanel();
+        characterInfoPanel = new CharacterInfoPanel(dog);
         panel.add(characterInfoPanel, BorderLayout.WEST);
 
         // creating a status panel with status bars shown on top of the screen
-        statusPanel = new StatusPanel();
+        statusPanel = new StatusPanel(dog);
         panel.add(statusPanel, BorderLayout.NORTH);
 
         // panel.add(new JButton("Woof-woof Inc."),BorderLayout.SOUTH);

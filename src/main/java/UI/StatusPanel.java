@@ -1,5 +1,6 @@
 package UI;
 
+import Logic.Pet;
 import java.awt.*;
 import javax.swing.*;
 
@@ -12,14 +13,14 @@ public class StatusPanel extends JPanel {
 
     private Font statusFont = new Font("Arial", Font.BOLD, 18);
 
-    public StatusPanel() {
+    public StatusPanel(Pet pet) {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.setBackground(Style.statusPanelBackgroundColor);
 
         fullness = new JProgressBar();
         fullness.setMinimum(0);
         fullness.setMaximum(50);
-        fullness.setValue(30);
+        fullness.setValue(pet.getFullness());
 
         cleanliness = new JProgressBar();
         cleanliness.setMinimum(0);

@@ -1,5 +1,6 @@
 package UI;
 
+import Logic.Pet;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,7 +12,7 @@ public class CharacterInfoPanel extends JPanel {
     private JLabel moodLabel;
     private Font labelFont = new Font("Arial", Font.BOLD, 16);
 
-    public CharacterInfoPanel() {
+    public CharacterInfoPanel(Pet pet) {
         setLayout(new BorderLayout());
 
         JPanel infoPanel = new JPanel();
@@ -23,11 +24,11 @@ public class CharacterInfoPanel extends JPanel {
         Color infoPanelBackgroundColor = Color.decode("#45612c");
         infoPanel.setBackground(infoPanelBackgroundColor);
 
-        nameLabel = new JLabel("Name: ");
+        nameLabel = new JLabel("Name: " + pet.getName());
         nameLabel.setFont(labelFont);
-        breedLabel = new JLabel("Breed: ");
+        breedLabel = new JLabel("Breed: " + pet.getBreed());
         breedLabel.setFont(labelFont);
-        ageLabel = new JLabel("Age: ");
+        ageLabel = new JLabel("Age: " + pet.getAge());
         ageLabel.setFont(labelFont);
         ImageIcon moodIcon = new ImageIcon(getClass().getResource("/happyEmote.png"));
         moodLabel = new JLabel("Mood: ");

@@ -1,6 +1,8 @@
 package UI;
 
+import Logic.Pet;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 public class ActionPanel extends JPanel {
@@ -8,10 +10,10 @@ public class ActionPanel extends JPanel {
     private JButton clean;
     private JButton sleep;
     private JButton play;
-    private JButton pet;
+    private JButton pat;
     private Font actionButtonsFont = new Font("Arial", Font.BOLD, 14);
 
-    public ActionPanel() {
+    public ActionPanel(Pet pet) {
         // Используем GridLayout для автоматического распределения компонентов
         this.setLayout(new GridLayout(5, 1, 10, 10)); // 4 строки, 1 столбец, отступы 10 пикселей
         Color buttonBackgroundColor = Color.decode("#472c61");
@@ -19,6 +21,7 @@ public class ActionPanel extends JPanel {
 
         feed = new JButton("Feed me");
         feed.setPreferredSize(new Dimension(150, 50));
+        feed.addActionListener((ActionEvent event) -> {});
 
         clean = new JButton("Clean me");
         clean.setPreferredSize(new Dimension(150, 50));
@@ -29,32 +32,32 @@ public class ActionPanel extends JPanel {
         play = new JButton("Play with me");
         play.setPreferredSize(new Dimension(150, 50));
 
-        pet = new JButton("Pet me");
-        pet.setPreferredSize(new Dimension(150, 50));
+        pat = new JButton("Pat me");
+        pat.setPreferredSize(new Dimension(150, 50));
 
         setButtonBackground(feed, buttonBackgroundColor);
         setButtonBackground(clean, buttonBackgroundColor);
         setButtonBackground(sleep, buttonBackgroundColor);
         setButtonBackground(play, buttonBackgroundColor);
-        setButtonBackground(pet, buttonBackgroundColor);
+        setButtonBackground(pat, buttonBackgroundColor);
 
         feed.setForeground(buttonForegroundColor);
         clean.setForeground(buttonForegroundColor);
         sleep.setForeground(buttonForegroundColor);
         play.setForeground(buttonForegroundColor);
-        pet.setForeground(buttonForegroundColor);
+        pat.setForeground(buttonForegroundColor);
 
         feed.setFont(actionButtonsFont);
         clean.setFont(actionButtonsFont);
         sleep.setFont(actionButtonsFont);
         play.setFont(actionButtonsFont);
-        pet.setFont(actionButtonsFont);
+        pat.setFont(actionButtonsFont);
 
         this.add(feed);
         this.add(clean);
         this.add(sleep);
         this.add(play);
-        this.add(pet);
+        this.add(pat);
 
         // Устанавливаем предпочтительные размеры для панели ActionPanel
         int panelWidth = 250;
