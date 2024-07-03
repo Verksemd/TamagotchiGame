@@ -2,6 +2,9 @@ package UI;
 
 import Logic.Pet;
 import java.awt.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 public class StatusPanel extends JPanel {
@@ -20,22 +23,18 @@ public class StatusPanel extends JPanel {
         fullness = new JProgressBar();
         fullness.setMinimum(0);
         fullness.setMaximum(50);
-        fullness.setValue(pet.getFullness());
 
         cleanliness = new JProgressBar();
         cleanliness.setMinimum(0);
         cleanliness.setMaximum(50);
-        cleanliness.setValue(20);
 
         happiness = new JProgressBar();
         happiness.setMinimum(0);
         happiness.setMaximum(50);
-        happiness.setValue(40);
 
         energy = new JProgressBar();
         energy.setMinimum(0);
         energy.setMaximum(50);
-        energy.setValue(10);
 
         JPanel hungerPanel = new JPanel();
         hungerPanel.setLayout(new BoxLayout(hungerPanel, BoxLayout.Y_AXIS));
@@ -92,5 +91,17 @@ public class StatusPanel extends JPanel {
         this.add(happinessPanel);
         this.add(Box.createHorizontalStrut(10));
         this.add(energyPanel);
+
+        ScheduledExecutorService timer = Executors.newScheduledThreadPool(3);
+        timer.scheduleAtFixedRate(
+                () -> {
+                    fullness.setValue(pet.getFullness());
+                    cleanliness.setValue(pet.getCleanliness());
+                    energy.setValue(pet.getEnergy());
+                    happiness.setValue(pet.getHappiness());
+                },
+                0,
+                1,
+                TimeUnit.SECONDS);
     }
 }

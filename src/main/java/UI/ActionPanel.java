@@ -21,19 +21,47 @@ public class ActionPanel extends JPanel {
 
         feed = new JButton("Feed me");
         feed.setPreferredSize(new Dimension(150, 50));
-        feed.addActionListener((ActionEvent event) -> {});
+        feed.addActionListener(
+                (ActionEvent event) -> {
+                    pet.restoreFullness(5);
+                    pet.restoreHappiness(10);
+                    pet.decreaseCleanliness(5);
+                });
 
         clean = new JButton("Clean me");
         clean.setPreferredSize(new Dimension(150, 50));
+        clean.addActionListener(
+                (ActionEvent event) -> {
+                    pet.restoreCleanliness(10);
+                    pet.restoreHappiness(5);
+                });
 
         sleep = new JButton("Fall asleep");
         sleep.setPreferredSize(new Dimension(150, 50));
+        sleep.addActionListener(
+                (ActionEvent event) -> {
+                    pet.restoreEnergy(10);
+                    pet.restoreHappiness(10);
+                    pet.decreaseFullness(5);
+                    pet.decreaseCleanliness(5);
+                });
 
         play = new JButton("Play with me");
         play.setPreferredSize(new Dimension(150, 50));
+        play.addActionListener(
+                (ActionEvent event) -> {
+                    pet.restoreHappiness(10);
+                    pet.decreaseEnergy(10);
+                    pet.decreaseCleanliness(5);
+                    pet.decreaseFullness(10);
+                });
 
         pat = new JButton("Pat me");
         pat.setPreferredSize(new Dimension(150, 50));
+        pat.addActionListener(
+                (ActionEvent event) -> {
+                    pet.restoreHappiness(10);
+                });
 
         setButtonBackground(feed, buttonBackgroundColor);
         setButtonBackground(clean, buttonBackgroundColor);

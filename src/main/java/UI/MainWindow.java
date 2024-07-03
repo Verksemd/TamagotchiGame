@@ -47,7 +47,7 @@ public class MainWindow {
 
         panel.setLayout(layout);
         panel.add(new JLabel(animatedIcon), BorderLayout.CENTER);
-        Pet dog = new Pet("Goburu", 24, "Husky", 30);
+        Pet dog = new Pet("Goburu", 24, "Husky", 30, 25, 10, 2);
         actionPanel = new ActionPanel(dog);
         panel.add(actionPanel, BorderLayout.EAST);
 
