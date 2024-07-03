@@ -73,6 +73,10 @@ public class Pet {
         happiness.increaseValue(amount);
     }
 
+    public void decreaseHappiness(int amount) {
+        happiness.decreaseValue(amount);
+    }
+
     public String getName() {
         return name;
     }

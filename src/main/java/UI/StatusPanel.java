@@ -93,7 +93,7 @@ public class StatusPanel extends JPanel {
         this.add(Box.createHorizontalStrut(10));
         this.add(energyPanel);
 
-        ScheduledExecutorService timer = Executors.newScheduledThreadPool(3);
+        ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
         timer.scheduleAtFixedRate(
                 () -> {
                     fullness.setValue(pet.getFullness());
@@ -102,7 +102,7 @@ public class StatusPanel extends JPanel {
                     happiness.setValue(pet.getHappiness());
                 },
                 0,
-                1,
-                TimeUnit.SECONDS);
+                250,
+                TimeUnit.MILLISECONDS);
     }
 }

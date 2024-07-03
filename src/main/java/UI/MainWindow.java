@@ -2,6 +2,9 @@ package UI;
 
 import Logic.Pet;
 import java.awt.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 public class MainWindow {
@@ -47,7 +50,7 @@ public class MainWindow {
 
         panel.setLayout(layout);
         panel.add(new JLabel(animatedIcon), BorderLayout.CENTER);
-        Pet dog = new Pet("Goburu", 24, "Husky", 30, 25, 10, 2);
+        Pet dog = new Pet("Goburu", 24, "Husky", 10, 10, 10, 2);
         actionPanel = new ActionPanel(dog);
         panel.add(actionPanel, BorderLayout.EAST);
 
@@ -62,5 +65,17 @@ public class MainWindow {
 
         mainFrame.add(panel);
         mainFrame.setVisible(true);
+
+        ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+        timer.scheduleAtFixedRate(
+                () -> {
+                    dog.decreaseFullness(1);
+                    dog.decreaseCleanliness(1);
+                    dog.decreaseEnergy(1);
+                    dog.decreaseHappiness(1);
+                },
+                1,
+                1,
+                TimeUnit.MINUTES);
     }
 }
