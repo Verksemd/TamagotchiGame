@@ -1,10 +1,10 @@
 package Logic;
 
 public class Pet {
-    private int fullness;
-    private int cleanliness;
-    private int energy;
-    private int happiness;
+    private PetStat fullness;
+    private PetStat cleanliness;
+    private PetStat energy;
+    private PetStat happiness;
     private String name;
     private int age;
     private String breed;
@@ -20,57 +20,57 @@ public class Pet {
         if (currentFullness < 1 || currentFullness > 50) {
             throw new RuntimeException("Invalid fullness value " + currentFullness);
         }
-        fullness = currentFullness;
-        cleanliness = currentCleanliness;
-        energy = currentEnergy;
-        happiness = currentHappiness;
+        fullness = new PetStat(currentFullness);
+        cleanliness = new PetStat(currentCleanliness);
+        energy = new PetStat(currentEnergy);
+        happiness = new PetStat(currentHappiness);
         this.name = name;
         this.age = age;
         this.breed = breed;
     }
 
     public int getFullness() {
-        return fullness;
+        return fullness.getValue();
     }
 
     public void restoreFullness(int amount) {
-        fullness += amount;
+        fullness.increaseValue(amount);
     }
 
     public void decreaseFullness(int amount) {
-        fullness -= amount;
+        fullness.decreaseValue(amount);
     }
 
     public int getCleanliness() {
-        return cleanliness;
+        return cleanliness.getValue();
     }
 
     public void restoreCleanliness(int amount) {
-        cleanliness += amount;
+        cleanliness.increaseValue(amount);
     }
 
     public void decreaseCleanliness(int amount) {
-        cleanliness -= amount;
+        cleanliness.decreaseValue(amount);
     }
 
     public int getEnergy() {
-        return energy;
+        return energy.getValue();
     }
 
     public void restoreEnergy(int amount) {
-        energy += amount;
+        energy.increaseValue(amount);
     }
 
     public void decreaseEnergy(int amount) {
-        energy -= amount;
+        energy.decreaseValue(amount);
     }
 
     public int getHappiness() {
-        return happiness;
+        return happiness.getValue();
     }
 
     public void restoreHappiness(int amount) {
-        happiness += amount;
+        happiness.increaseValue(amount);
     }
 
     public String getName() {

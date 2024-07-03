@@ -1,6 +1,7 @@
 package UI;
 
 import Logic.Pet;
+import Logic.PetStat;
 import java.awt.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,20 +22,20 @@ public class StatusPanel extends JPanel {
         this.setBackground(Style.statusPanelBackgroundColor);
 
         fullness = new JProgressBar();
-        fullness.setMinimum(0);
-        fullness.setMaximum(50);
+        fullness.setMinimum(PetStat.MIN_VALUE);
+        fullness.setMaximum(PetStat.MAX_VALUE);
 
         cleanliness = new JProgressBar();
-        cleanliness.setMinimum(0);
-        cleanliness.setMaximum(50);
+        cleanliness.setMinimum(PetStat.MIN_VALUE);
+        cleanliness.setMaximum(PetStat.MAX_VALUE);
 
         happiness = new JProgressBar();
-        happiness.setMinimum(0);
-        happiness.setMaximum(50);
+        happiness.setMinimum(PetStat.MIN_VALUE);
+        happiness.setMaximum(PetStat.MAX_VALUE);
 
         energy = new JProgressBar();
-        energy.setMinimum(0);
-        energy.setMaximum(50);
+        energy.setMinimum(PetStat.MIN_VALUE);
+        energy.setMaximum(PetStat.MAX_VALUE);
 
         JPanel hungerPanel = new JPanel();
         hungerPanel.setLayout(new BoxLayout(hungerPanel, BoxLayout.Y_AXIS));
