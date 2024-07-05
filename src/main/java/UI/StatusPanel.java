@@ -3,9 +3,6 @@ package UI;
 import Logic.Pet;
 import Logic.PetStat;
 import java.awt.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 public class StatusPanel extends JPanel {
@@ -92,17 +89,12 @@ public class StatusPanel extends JPanel {
         this.add(happinessPanel);
         this.add(Box.createHorizontalStrut(10));
         this.add(energyPanel);
+    }
 
-        ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
-        timer.scheduleAtFixedRate(
-                () -> {
-                    fullness.setValue(pet.getFullness());
-                    cleanliness.setValue(pet.getCleanliness());
-                    energy.setValue(pet.getEnergy());
-                    happiness.setValue(pet.getHappiness());
-                },
-                0,
-                250,
-                TimeUnit.MILLISECONDS);
+    public void refresh(Pet pet) {
+        fullness.setValue(pet.getFullness());
+        cleanliness.setValue(pet.getCleanliness());
+        energy.setValue(pet.getEnergy());
+        happiness.setValue(pet.getHappiness());
     }
 }

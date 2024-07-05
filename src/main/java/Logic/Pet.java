@@ -17,9 +17,6 @@ public class Pet {
             int currentCleanliness,
             int currentEnergy,
             int currentHappiness) {
-        if (currentFullness < 1 || currentFullness > 50) {
-            throw new RuntimeException("Invalid fullness value " + currentFullness);
-        }
         fullness = new PetStat(currentFullness);
         cleanliness = new PetStat(currentCleanliness);
         energy = new PetStat(currentEnergy);
