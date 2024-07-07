@@ -59,7 +59,9 @@ public class CharacterInfoPanel extends JPanel {
         // JScrollPane scrollPane = new JScrollPane(dialogueArea);
         // scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         dialogueArea.setText(
-                "Arf arf! Hey there, I'm your virtual companion here! My name's Buddy, and I'm a playful pup ready to explore and have fun with you. Woof woof! You can interact with me in various ways – feed me tasty treats when I'm hungry, take me for walks to keep me active, and don't forget to pet me for some good belly rubs! Ruff ruff! If I look sleepy, it's probably time for a nap in my cozy bed. I'm excited to be your loyal friend and companion on this virtual adventure. Let's create unforgettable memories together!");
+                "Arf arf! Hey there, I'm your virtual companion here! My name's "
+                        + pet.getName()
+                        + ", and I'm a playful pup ready to explore and have fun with you. Woof woof! You can interact with me in various ways – feed me tasty treats when I'm hungry, take me for walks to keep me active, and don't forget to pet me for some good belly rubs! Ruff ruff! If I look sleepy, it's probably time for a nap in my cozy bed. I'm excited to be your loyal friend and companion on this virtual adventure. Let's create unforgettable memories together!");
         // this.add(scrollPane, BorderLayout.CENTER);
         this.add(dialogueArea, BorderLayout.CENTER);
     }

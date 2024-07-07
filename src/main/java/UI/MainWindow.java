@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -20,7 +22,25 @@ public class MainWindow {
     private Pet pet;
 
     public MainWindow() {
-        pet = new Pet("Goblin", 2, "orc", 100, 100, 100, 100);
+        Gson gson = new GsonBuilder().create();
+        Save mySave = null;
+        try (FileReader reader = new FileReader(Save.SAVE_FILE)) {
+            mySave = gson.fromJson(reader, Save.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        pet =
+                new Pet(
+                        mySave.name,
+                        mySave.age,
+                        mySave.breed,
+                        mySave.fullness,
+                        mySave.cleanliness,
+                        mySave.energy,
+                        mySave.happiness);
+
         prepareGUI(pet);
 
         ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
@@ -43,7 +63,7 @@ public class MainWindow {
             mainFrame = new JFrame("Tamagotchi game");
             mainFrame.setSize(900, 600);
             mainFrame.setLayout(new GridLayout());
-            mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            mainFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
             mainFrame.setLocationRelativeTo(null);
         } else {
             mainFrame.getContentPane().removeAll();
@@ -56,6 +76,10 @@ public class MainWindow {
         JMenuItem save = createSaveButton();
         JMenuItem load = createLoadButton();
         JMenuItem exit = new JMenuItem("Exit");
+        exit.addActionListener(
+                (ActionEvent event) -> {
+                    System.exit(0);
+                });
         menu.add(save);
         menu.add(load);
         menu.add(exit);
@@ -68,20 +92,7 @@ public class MainWindow {
         JMenuItem save = new JMenuItem("Save");
         save.addActionListener(
                 (ActionEvent event) -> {
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    try (FileWriter writer = new FileWriter(Save.SAVE_FILE)) {
-                        Save newSave = new Save();
-                        newSave.name = pet.getName();
-                        newSave.age = pet.getAge();
-                        newSave.breed = pet.getBreed();
-                        newSave.fullness = pet.getFullness();
-                        newSave.cleanliness = pet.getCleanliness();
-                        newSave.energy = pet.getEnergy();
-                        newSave.happiness = pet.getHappiness();
-                        gson.toJson(newSave, writer);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    saveCurrentGame();
                 });
         return save;
     }
@@ -146,5 +157,42 @@ public class MainWindow {
         // panel.add(new JButton("Woof-woof Inc."),BorderLayout.SOUTH);
 
         mainFrame.add(panel);
+        mainFrame.addWindowListener(
+                new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        int response =
+                                JOptionPane.showConfirmDialog(
+                                        mainFrame,
+                                        "Do you want to save your progress before exiting?",
+                                        "Confirm Exit",
+                                        JOptionPane.YES_NO_CANCEL_OPTION,
+                                        JOptionPane.QUESTION_MESSAGE);
+
+                        if (response == JOptionPane.YES_OPTION) {
+                            saveCurrentGame();
+                            System.exit(0);
+                        } else if (response == JOptionPane.NO_OPTION) {
+                            System.exit(0);
+                        }
+                    }
+                });
+    }
+
+    private void saveCurrentGame() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (FileWriter writer = new FileWriter(Save.SAVE_FILE)) {
+            Save newSave = new Save();
+            newSave.name = pet.getName();
+            newSave.age = pet.getAge();
+            newSave.breed = pet.getBreed();
+            newSave.fullness = pet.getFullness();
+            newSave.cleanliness = pet.getCleanliness();
+            newSave.energy = pet.getEnergy();
+            newSave.happiness = pet.getHappiness();
+            gson.toJson(newSave, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
