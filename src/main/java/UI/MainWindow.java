@@ -2,13 +2,11 @@ package UI;
 
 import Logic.Pet;
 import Logic.Save;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.*;
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -22,34 +20,13 @@ public class MainWindow {
     private Pet pet;
 
     public MainWindow() {
-        Gson gson = new GsonBuilder().create();
-        Save mySave = null;
-        try (FileReader reader = new FileReader(Save.SAVE_FILE)) {
-            mySave = gson.fromJson(reader, Save.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-
-        pet =
-                new Pet(
-                        mySave.name,
-                        mySave.age,
-                        mySave.breed,
-                        mySave.fullness,
-                        mySave.cleanliness,
-                        mySave.energy,
-                        mySave.happiness);
-
+        loadLatestSave();
         prepareGUI(pet);
 
         ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
         timer.scheduleAtFixedRate(
                 () -> {
-                    pet.decreaseFullness(1);
-                    pet.decreaseCleanliness(1);
-                    pet.decreaseEnergy(1);
-                    pet.decreaseHappiness(1);
+                    timePassed(1);
                 },
                 1,
                 1,
@@ -101,25 +78,7 @@ public class MainWindow {
         JMenuItem load = new JMenuItem("Load");
         load.addActionListener(
                 (ActionEvent event) -> {
-                    Gson gson = new GsonBuilder().create();
-                    Save mySave = null;
-                    try (FileReader reader = new FileReader(Save.SAVE_FILE)) {
-                        mySave = gson.fromJson(reader, Save.class);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        System.exit(0);
-                    }
-
-                    pet =
-                            new Pet(
-                                    mySave.name,
-                                    mySave.age,
-                                    mySave.breed,
-                                    mySave.fullness,
-                                    mySave.cleanliness,
-                                    mySave.energy,
-                                    mySave.happiness);
-
+                    loadLatestSave();
                     prepareGUI(pet);
                     render();
                 });
@@ -180,19 +139,39 @@ public class MainWindow {
     }
 
     private void saveCurrentGame() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter writer = new FileWriter(Save.SAVE_FILE)) {
-            Save newSave = new Save();
-            newSave.name = pet.getName();
-            newSave.age = pet.getAge();
-            newSave.breed = pet.getBreed();
-            newSave.fullness = pet.getFullness();
-            newSave.cleanliness = pet.getCleanliness();
-            newSave.energy = pet.getEnergy();
-            newSave.happiness = pet.getHappiness();
-            gson.toJson(newSave, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Save newSave = new Save();
+        newSave.name = pet.getName();
+        newSave.age = pet.getAge();
+        newSave.breed = pet.getBreed();
+        newSave.fullness = pet.getFullness();
+        newSave.cleanliness = pet.getCleanliness();
+        newSave.energy = pet.getEnergy();
+        newSave.happiness = pet.getHappiness();
+        newSave.savedAt = (int) (new Date().getTime() / 1000);
+        newSave.conserve();
+    }
+
+    private void loadLatestSave() {
+        Save mySave = Save.load();
+        pet =
+                new Pet(
+                        mySave.name,
+                        mySave.age,
+                        mySave.breed,
+                        mySave.fullness,
+                        mySave.cleanliness,
+                        mySave.energy,
+                        mySave.happiness);
+
+        int currentTime = (int) (new Date().getTime() / 1000);
+        int passedTime = (currentTime - mySave.savedAt) / 60;
+        timePassed(passedTime);
+    }
+
+    private void timePassed(int minutes) {
+        pet.decreaseFullness(minutes);
+        pet.decreaseCleanliness(minutes);
+        pet.decreaseEnergy(minutes);
+        pet.decreaseHappiness(minutes);
     }
 }
