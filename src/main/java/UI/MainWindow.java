@@ -3,7 +3,6 @@ package UI;
 import Logic.Pet;
 import Logic.Save;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
@@ -14,108 +13,19 @@ import javax.swing.*;
 
 public class MainWindow {
     private JFrame mainFrame;
-    private StatusPanel statusPanel;
-    private ActionPanel actionPanel;
-    private CharacterInfoPanel characterInfoPanel;
+    private Scene currentScene;
     private Pet pet;
 
     public MainWindow() {
         loadLatestSave();
-        prepareGUI(pet);
-
         ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+        timer.scheduleAtFixedRate(() -> timePassed(1), 1, 1, TimeUnit.MINUTES);
+
+        int fps = 30;
+        int frequency = (int) (1000.0 / fps);
         timer.scheduleAtFixedRate(
-                () -> {
-                    timePassed(1);
-                },
-                1,
-                1,
-                TimeUnit.MINUTES);
+                () -> currentScene.refresh(), 0, frequency, TimeUnit.MILLISECONDS);
 
-        timer.scheduleAtFixedRate(() -> statusPanel.refresh(pet), 0, 250, TimeUnit.MILLISECONDS);
-    }
-
-    private void prepareGUI(Pet pet) {
-        if (mainFrame == null) {
-            mainFrame = new JFrame("Tamagotchi game");
-            mainFrame.setSize(900, 600);
-            mainFrame.setLayout(new GridLayout());
-            mainFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-            mainFrame.setLocationRelativeTo(null);
-        } else {
-            mainFrame.getContentPane().removeAll();
-        }
-
-        mainFrame.setVisible(false);
-
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("Game");
-        JMenuItem save = createSaveButton();
-        JMenuItem load = createLoadButton();
-        JMenuItem exit = new JMenuItem("Exit");
-        exit.addActionListener(
-                (ActionEvent event) -> {
-                    System.exit(0);
-                });
-        menu.add(save);
-        menu.add(load);
-        menu.add(exit);
-        menuBar.add(menu);
-        mainFrame.setJMenuBar(menuBar);
-        createPetPanels(pet);
-    }
-
-    private JMenuItem createSaveButton() {
-        JMenuItem save = new JMenuItem("Save");
-        save.addActionListener(
-                (ActionEvent event) -> {
-                    saveCurrentGame();
-                });
-        return save;
-    }
-
-    private JMenuItem createLoadButton() {
-        JMenuItem load = new JMenuItem("Load");
-        load.addActionListener(
-                (ActionEvent event) -> {
-                    loadLatestSave();
-                    prepareGUI(pet);
-                    render();
-                });
-        return load;
-    }
-
-    public void render() {
-        mainFrame.revalidate();
-        mainFrame.setVisible(true);
-    }
-
-    private void createPetPanels(Pet pet) {
-        JPanel panel = new JPanel();
-        Color backgroundColor = Color.decode("#2C6061");
-        panel.setBackground(backgroundColor);
-        BorderLayout layout = new BorderLayout();
-        layout.setHgap(20);
-        layout.setVgap(20);
-
-        ImageIcon animatedIcon = new ImageIcon(getClass().getResource("/wolf_tail_animated.gif"));
-
-        panel.setLayout(layout);
-        panel.add(new JLabel(animatedIcon), BorderLayout.CENTER);
-
-        actionPanel = new ActionPanel(pet);
-        panel.add(actionPanel, BorderLayout.EAST);
-
-        characterInfoPanel = new CharacterInfoPanel(pet);
-        panel.add(characterInfoPanel, BorderLayout.WEST);
-
-        // creating a status panel with status bars shown on top of the screen
-        statusPanel = new StatusPanel(pet);
-        panel.add(statusPanel, BorderLayout.NORTH);
-
-        // panel.add(new JButton("Woof-woof Inc."),BorderLayout.SOUTH);
-
-        mainFrame.add(panel);
         mainFrame.addWindowListener(
                 new WindowAdapter() {
                     @Override
@@ -138,7 +48,30 @@ public class MainWindow {
                 });
     }
 
-    private void saveCurrentGame() {
+    private void prepareGUI(Pet pet) {
+        if (mainFrame == null) {
+            mainFrame = new JFrame("Tamagotchi game");
+            mainFrame.setSize(900, 600);
+            mainFrame.setLayout(new GridLayout());
+            mainFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            mainFrame.setLocationRelativeTo(null);
+        } else {
+            mainFrame.getContentPane().removeAll();
+        }
+
+        mainFrame.setVisible(false);
+        currentScene = new GameScene(this, pet);
+        JMenuBar menuBar = currentScene.getMenu();
+        mainFrame.setJMenuBar(menuBar);
+        mainFrame.add(currentScene.toComponent());
+    }
+
+    public void render() {
+        mainFrame.revalidate();
+        mainFrame.setVisible(true);
+    }
+
+    public void saveCurrentGame() {
         Save newSave = new Save();
         newSave.name = pet.getName();
         newSave.age = pet.getAge();
@@ -151,7 +84,7 @@ public class MainWindow {
         newSave.conserve();
     }
 
-    private void loadLatestSave() {
+    public void loadLatestSave() {
         Save mySave = Save.load();
         pet =
                 new Pet(
@@ -166,6 +99,8 @@ public class MainWindow {
         int currentTime = (int) (new Date().getTime() / 1000);
         int passedTime = (currentTime - mySave.savedAt) / 60;
         timePassed(passedTime);
+        prepareGUI(pet);
+        render();
     }
 
     private void timePassed(int minutes) {

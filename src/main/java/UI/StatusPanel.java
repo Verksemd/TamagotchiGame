@@ -91,7 +91,7 @@ public class StatusPanel extends JPanel {
         this.add(energyPanel);
     }
 
-    public void refresh(Pet pet) {
+    public void updateState(Pet pet) {
         fullness.setValue(pet.getFullness());
         cleanliness.setValue(pet.getCleanliness());
         energy.setValue(pet.getEnergy());
