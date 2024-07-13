@@ -22,10 +22,7 @@ public class GameScene implements Scene {
         JMenuItem save = createSaveButton();
         JMenuItem load = createLoadButton();
         JMenuItem exit = new JMenuItem("Exit");
-        exit.addActionListener(
-                (ActionEvent event) -> {
-                    System.exit(0);
-                });
+        exit.addActionListener((ActionEvent event) -> System.exit(0));
         menu.add(save);
         menu.add(load);
         menu.add(exit);
@@ -66,10 +63,8 @@ public class GameScene implements Scene {
 
     private JMenuItem createSaveButton() {
         JMenuItem save = new JMenuItem("Save");
-        save.addActionListener(
-                (ActionEvent event) -> {
-                    mainWindow.saveCurrentGame();
-                });
+        save.addActionListener((ActionEvent event) -> mainWindow.saveCurrentGame());
+
         return save;
     }
 
