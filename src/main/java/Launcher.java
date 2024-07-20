@@ -8,7 +8,7 @@ public class Launcher {
         if (!saveDir.exists()) {
             saveDir.mkdirs();
         }
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.render();
+
+        new MainWindow();
     }
 }

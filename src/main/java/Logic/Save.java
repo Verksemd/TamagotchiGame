@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Date;
 
 public class Save {
+    private static Save temporary;
     public static final String SAVE_DIR =
             Paths.get(System.getProperty("user.home"), "Tamagotchi").toString();
     private static final String SAVE_FILE = Paths.get(SAVE_DIR, "game_save.json").toString();
@@ -20,7 +22,7 @@ public class Save {
     public int happiness;
     public int savedAt;
 
-    public static Save load() {
+    public static void load() {
         Gson gson = new GsonBuilder().create();
         Save mySave = null;
         try (FileReader reader = new FileReader(Save.SAVE_FILE)) {
@@ -29,7 +31,8 @@ public class Save {
             e.printStackTrace();
             System.exit(0);
         }
-        return mySave;
+
+        temporary = mySave;
     }
 
     public void conserve() {
@@ -39,5 +42,25 @@ public class Save {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void createTemporary() {
+        temporary = new Save();
+        temporary.name = "Milashka";
+        temporary.age = 0;
+        temporary.breed = "Australian Heeler";
+        temporary.happiness = 100;
+        temporary.energy = 100;
+        temporary.fullness = 100;
+        temporary.cleanliness = 100;
+        temporary.savedAt = (int) (new Date().getTime() / 1000);
+    }
+
+    public static Save getTemporary() {
+        Save result = temporary;
+
+        temporary = null;
+
+        return result;
     }
 }
