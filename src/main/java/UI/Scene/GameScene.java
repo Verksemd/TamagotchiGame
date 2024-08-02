@@ -13,6 +13,7 @@ public class GameScene implements Scene {
     private StatusPanel statusPanel;
     private JPanel UI;
     private final SceneManager sceneManager;
+    private long lastSimulatedAt;
 
     public GameScene(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
@@ -44,15 +45,12 @@ public class GameScene implements Scene {
 
     @Override
     public void refresh() {
-        // TODO calculate on how much time has passed & use that info to properly call
-        boolean minutePassed = false;
-        int currentTime = (int) (new Date().getTime());
-        if (currentTime % 600 == 0) {
-            minutePassed = true;
+        long currentTime = new Date().getTime();
+        int timePassedInMinutes = (int) ((currentTime - lastSimulatedAt) / 60000);
+        if (timePassedInMinutes >= 1) {
+            simulateTimePassed(timePassedInMinutes);
         }
-        if (minutePassed) {
-            simulateTimePassed(1);
-        }
+
         statusPanel.updateState(pet);
     }
 
@@ -142,6 +140,7 @@ public class GameScene implements Scene {
     }
 
     private void simulateTimePassed(int minutes) {
+        lastSimulatedAt = lastSimulatedAt + (minutes * 60000L);
         pet.decreaseFullness(minutes);
         pet.decreaseCleanliness(minutes);
         pet.decreaseEnergy(minutes);
