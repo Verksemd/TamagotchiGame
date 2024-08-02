@@ -14,7 +14,6 @@ public class ActionPanel extends JPanel {
     private Font actionButtonsFont = new Font("Arial", Font.BOLD, 14);
 
     public ActionPanel(Pet pet) {
-        // Используем GridLayout для автоматического распределения компонентов
         this.setLayout(new GridLayout(5, 1, 10, 10)); // 4 строки, 1 столбец, отступы 10 пикселей
         Color buttonBackgroundColor = Color.decode("#472c61");
         Color buttonForegroundColor = Color.decode("#66dee0");
@@ -23,44 +22,44 @@ public class ActionPanel extends JPanel {
         feed.setPreferredSize(new Dimension(150, 50));
         feed.addActionListener(
                 (ActionEvent event) -> {
-                    pet.restoreFullness(5);
-                    pet.restoreHappiness(10);
-                    pet.decreaseCleanliness(5);
+                    pet.restoreFullness(3);
+                    pet.restoreHappiness(2);
+                    pet.decreaseCleanliness(1);
                 });
 
         clean = new JButton("Clean me");
         clean.setPreferredSize(new Dimension(150, 50));
         clean.addActionListener(
                 (ActionEvent event) -> {
-                    pet.restoreCleanliness(10);
-                    pet.restoreHappiness(5);
+                    pet.restoreCleanliness(2);
+                    pet.restoreHappiness(2);
                 });
 
         sleep = new JButton("Fall asleep");
         sleep.setPreferredSize(new Dimension(150, 50));
         sleep.addActionListener(
                 (ActionEvent event) -> {
-                    pet.restoreEnergy(10);
-                    pet.restoreHappiness(10);
-                    pet.decreaseFullness(5);
-                    pet.decreaseCleanliness(5);
+                    pet.restoreEnergy(3);
+                    pet.restoreHappiness(2);
+                    pet.decreaseFullness(1);
+                    pet.decreaseCleanliness(1);
                 });
 
         play = new JButton("Play with me");
         play.setPreferredSize(new Dimension(150, 50));
         play.addActionListener(
                 (ActionEvent event) -> {
-                    pet.restoreHappiness(10);
-                    pet.decreaseEnergy(10);
-                    pet.decreaseCleanliness(5);
-                    pet.decreaseFullness(10);
+                    pet.restoreHappiness(3);
+                    pet.decreaseEnergy(1);
+                    pet.decreaseCleanliness(1);
+                    pet.decreaseFullness(1);
                 });
 
         pat = new JButton("Pat me");
         pat.setPreferredSize(new Dimension(150, 50));
         pat.addActionListener(
                 (ActionEvent event) -> {
-                    pet.restoreHappiness(10);
+                    pet.restoreHappiness(5);
                 });
 
         setButtonBackground(feed, buttonBackgroundColor);

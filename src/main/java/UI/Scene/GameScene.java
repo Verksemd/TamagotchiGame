@@ -45,8 +45,29 @@ public class GameScene implements Scene {
     @Override
     public void refresh() {
         // TODO calculate on how much time has passed & use that info to properly call
-        // timePassed(minutes)
+        boolean minutePassed = false;
+        int currentTime = (int) (new Date().getTime());
+        if (currentTime % 600 == 0) {
+            minutePassed = true;
+        }
+        if (minutePassed) {
+            simulateTimePassed(1);
+        }
         statusPanel.updateState(pet);
+    }
+
+    public void onClose() {
+        int response =
+                JOptionPane.showConfirmDialog(
+                        null,
+                        "Do you want to save your progress before exiting?",
+                        "Confirm Exit",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+
+        if (response == JOptionPane.YES_OPTION) {
+            saveCurrentGame();
+        }
     }
 
     private void generateUI() {
@@ -117,10 +138,10 @@ public class GameScene implements Scene {
 
         int currentTime = (int) (new Date().getTime() / 1000);
         int passedTime = (currentTime - save.savedAt) / 60;
-        timePassed(passedTime);
+        simulateTimePassed(passedTime);
     }
 
-    private void timePassed(int minutes) {
+    private void simulateTimePassed(int minutes) {
         pet.decreaseFullness(minutes);
         pet.decreaseCleanliness(minutes);
         pet.decreaseEnergy(minutes);

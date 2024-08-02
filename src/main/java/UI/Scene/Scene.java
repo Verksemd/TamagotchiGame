@@ -9,4 +9,6 @@ public interface Scene {
     Component toComponent();
 
     void refresh();
+
+    void onClose();
 }

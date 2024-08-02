@@ -20,8 +20,14 @@ public class MainMenuScene implements Scene {
     @Override
     public Component toComponent() {
         JPanel panel = new JPanel();
-        Color backgroundColor = Color.decode("#2C6061");
+        Color backgroundColor = Color.decode("#E8C794");
+        // Color backgroundColor = Color.decode("#81B0A4");
         panel.setBackground(backgroundColor);
+
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/main_menu_pic.jpg"));
+        // ImageIcon logoIcon = new ImageIcon(getClass().getResource("/mainMenu3.jpg"));
+        JLabel logoLabel = new JLabel(logoIcon);
+        panel.add(logoLabel);
 
         JButton newGameButton = new JButton("New Game");
         newGameButton.setPreferredSize(new Dimension(150, 50));
@@ -46,4 +52,7 @@ public class MainMenuScene implements Scene {
 
     @Override
     public void refresh() {}
+
+    @Override
+    public void onClose() {}
 }
