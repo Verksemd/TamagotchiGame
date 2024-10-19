@@ -2,41 +2,41 @@ package UI;
 
 import Logic.Pet;
 import Logic.PetStat;
-import java.awt.*;
+
 import javax.swing.*;
+import java.awt.*;
 
-public class StatusPanel extends JPanel {
-    private JProgressBar fullness;
+class StatusPanel(pet: Pet):JPanel() {
+    private var fullness: JProgressBar
+    private var cleanliness: JProgressBar
+    private var energy: JProgressBar
+    private var happiness: JProgressBar
 
-    private JProgressBar cleanliness;
-    private JProgressBar energy;
-    private JProgressBar happiness;
+    private val statusFont: Font = Font("Arial", Font.BOLD, 18);
 
-    private Font statusFont = new Font("Arial", Font.BOLD, 18);
-
-    public StatusPanel(Pet pet) {
-        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+    init {
+        this.setLayout(BoxLayout(this, BoxLayout.X_AXIS));
         this.setBackground(Style.statusPanelBackgroundColor);
 
-        fullness = new JProgressBar();
+        fullness = JProgressBar();
         fullness.setMinimum(PetStat.MIN_VALUE);
         fullness.setMaximum(PetStat.MAX_VALUE);
 
-        cleanliness = new JProgressBar();
+        cleanliness = JProgressBar();
         cleanliness.setMinimum(PetStat.MIN_VALUE);
         cleanliness.setMaximum(PetStat.MAX_VALUE);
 
-        happiness = new JProgressBar();
+        happiness = JProgressBar();
         happiness.setMinimum(PetStat.MIN_VALUE);
         happiness.setMaximum(PetStat.MAX_VALUE);
 
-        energy = new JProgressBar();
+        energy = JProgressBar();
         energy.setMinimum(PetStat.MIN_VALUE);
         energy.setMaximum(PetStat.MAX_VALUE);
 
-        JPanel hungerPanel = new JPanel();
-        hungerPanel.setLayout(new BoxLayout(hungerPanel, BoxLayout.Y_AXIS));
-        JLabel hungerLabel = new JLabel("Fullness");
+        val hungerPanel: JPanel = JPanel();
+        hungerPanel.setLayout(BoxLayout(hungerPanel, BoxLayout.Y_AXIS));
+        val hungerLabel: JLabel  = JLabel("Fullness");
         hungerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         hungerLabel.setFont(statusFont);
         hungerLabel.setForeground(Style.statusPanelForegroundColor);
@@ -46,9 +46,9 @@ public class StatusPanel extends JPanel {
         hungerPanel.add(hungerLabel);
         hungerPanel.add(fullness);
 
-        JPanel thirstPanel = new JPanel();
-        thirstPanel.setLayout(new BoxLayout(thirstPanel, BoxLayout.Y_AXIS));
-        JLabel thirstLabel = new JLabel("Cleanliness");
+        val thirstPanel: JPanel = JPanel();
+        thirstPanel.setLayout(BoxLayout(thirstPanel, BoxLayout.Y_AXIS));
+        val thirstLabel: JLabel  = JLabel("Cleanliness");
         thirstLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         thirstLabel.setFont(statusFont);
         thirstLabel.setForeground(Style.statusPanelForegroundColor);
@@ -58,9 +58,9 @@ public class StatusPanel extends JPanel {
         thirstPanel.add(thirstLabel);
         thirstPanel.add(cleanliness);
 
-        JPanel happinessPanel = new JPanel();
-        happinessPanel.setLayout(new BoxLayout(happinessPanel, BoxLayout.Y_AXIS));
-        JLabel happinessLabel = new JLabel("Happiness");
+        val happinessPanel: JPanel  = JPanel();
+        happinessPanel.setLayout(BoxLayout(happinessPanel, BoxLayout.Y_AXIS));
+        val happinessLabel: JLabel = JLabel("Happiness");
         happinessLabel.setFont(statusFont);
         happinessLabel.setForeground(Style.statusPanelForegroundColor);
         happinessLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -70,9 +70,9 @@ public class StatusPanel extends JPanel {
         happinessPanel.add(happinessLabel);
         happinessPanel.add(happiness);
 
-        JPanel energyPanel = new JPanel();
-        energyPanel.setLayout(new BoxLayout(energyPanel, BoxLayout.Y_AXIS));
-        JLabel energyLabel = new JLabel("Energy");
+        val energyPanel: JPanel = JPanel();
+        energyPanel.setLayout(BoxLayout(energyPanel, BoxLayout.Y_AXIS));
+        val energyLabel: JLabel  = JLabel("Energy");
         energyLabel.setFont(statusFont);
         energyLabel.setForeground(Style.statusPanelForegroundColor);
         energyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -91,7 +91,7 @@ public class StatusPanel extends JPanel {
         this.add(energyPanel);
     }
 
-    public void updateState(Pet pet) {
+    fun updateState(pet: Pet) {
         fullness.setValue(pet.getFullness());
         cleanliness.setValue(pet.getCleanliness());
         energy.setValue(pet.getEnergy());

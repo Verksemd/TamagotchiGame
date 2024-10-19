@@ -2,6 +2,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'java'
     id "com.diffplug.spotless" version "6.25.0"
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 repositories {
@@ -15,7 +16,8 @@ dependencies {
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation 'com.google.code.gson:gson:2.8.9' // Check for the latest version
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8" // Check for the latest version
 
 }
 
