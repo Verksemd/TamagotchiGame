@@ -45,8 +45,8 @@ public class GameScene implements Scene {
 
     @Override
     public void refresh() {
-        long currentTime = new Date().getTime();
-        int timePassedInMinutes = (int) ((currentTime - lastSimulatedAt) / 60000);
+        long currentTime = new Date().getTime(); // timestamp
+        int timePassedInMinutes = (int) ((currentTime - lastSimulatedAt) / 60000); // transforming to minutes
         if (timePassedInMinutes >= 1) {
             simulateTimePassed(timePassedInMinutes);
         }
@@ -133,10 +133,7 @@ public class GameScene implements Scene {
                         save.cleanliness,
                         save.energy,
                         save.happiness);
-
-        int currentTime = (int) (new Date().getTime() / 1000);
-        int passedTime = (currentTime - save.savedAt) / 60;
-        simulateTimePassed(passedTime);
+        lastSimulatedAt = save.savedAt * 1000L;
     }
 
     private void simulateTimePassed(int minutes) {
